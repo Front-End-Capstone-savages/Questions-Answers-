@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style.css">
+    <title>FEC Demo</title>
+  </head>
+  <body>
+    <div id="name-of-the-service"></div>
+    <script src="/lib/react.development.js"></script>
+    <script src="/lib/react-dom.development.js"></script>
+    <script src="http://localhost:3001/app.js"></script>
+    <!-- see: https://reactjs.org/docs/react-without-jsx.html -->
+    <script>
+      ReactDOM.render(
+        React.createElement(NameOfTheService),
+        document.getElementById('name-of-the-service')
+      );
+    </script>
+  </body>
+</html>
