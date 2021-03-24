@@ -12,22 +12,22 @@ export default class Search extends Component {
     };
   }
 
-  componentDidMount() {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/?product_id=${11002}`, {
-      headers: {
-        'Authorization': `${token}`
-      }
-    })
-    .then((res) => {
-      this.setState({questions: res.data.results})
-    })
-    .catch((error) => {
-      console.error(error)
-    })
-  }
+  // componentDidMount() {
+  //   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/?product_id=${11002}`, {
+  //     headers: {
+  //       'Authorization': `${token}`
+  //     }
+  //   })
+  //   .then((res) => {
+  //     this.setState({questions: res.data.results})
+  //   })
+  //   .catch((error) => {
+  //     console.error(error)
+  //   })
+  // }
 
   render() {
-    console.log(this.state);
+    // console.log(this.props);
 
     return (
       <div className="container">
