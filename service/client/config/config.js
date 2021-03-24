@@ -1,4 +1,4 @@
 
-const token = "132d11734b4f6e7902ae8a6fb6ae30d4cb16285e" 
+const token = "cad558eb66033aadcae374fad9de2c063351a9e6" 
 
 export default token;

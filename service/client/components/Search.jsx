@@ -7,27 +7,25 @@ export default class Search extends Component {
     super(props);
 
     this.state = {
-      questions: [],
-      search: "",
+      quests_answers: [],
+      search: ""
     };
+    
   }
 
-  // componentDidMount() {
-  //   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/?product_id=${11002}`, {
-  //     headers: {
-  //       'Authorization': `${token}`
-  //     }
-  //   })
-  //   .then((res) => {
-  //     this.setState({questions: res.data.results})
-  //   })
-  //   .catch((error) => {
-  //     console.error(error)
-  //   })
-  // }
-
+  componentDidMount() {
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/?product_id=${11002}`, {
+      headers: {
+        'Authorization': `${token}` }
+    }).then((res) => {
+      this.setState({quests_answers: res.data.results})
+    }).catch((error) => {
+      console.error(error)
+    })
+  }
+  
   render() {
-    // console.log(this.props);
+    // console.log("state", this.state)  
 
     return (
       <div className="container">
@@ -38,7 +36,7 @@ export default class Search extends Component {
                 type="text"
                 className="  search-query form-control"
                 placeholder="Have a question? Search for answers..."
-              />
+                onChange={(e)=>{this.setState({search: e.target.value})}}/>
               <span className="input-group-btn">
                 <button className="btn btn-danger btn-search" type="button">
                   <i className="bi bi-search">
