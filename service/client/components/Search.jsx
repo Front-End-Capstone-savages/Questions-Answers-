@@ -28,22 +28,23 @@ export default class Search extends Component {
     console.log("imput", this.state.value)  
 
     return (
-      
-        <div className="row">
-          <h6>Questions & Answers</h6>
-          <input type="text" placeholder="Have a question? Search for answers" title="Type in a name"
-            onChange={(e)=>{this.setState({value: e.target.value})}}/>
-          {this.state.value.length >= 3 ? (
-                <ul >
-                  {this.state.quests_answers.map((question) => (
-                    <li key={question.question_id}>
-                      <a>{question.question_body}</a>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                ""
-              )}
+      <div className="row">
+        <h6>Questions & Answers</h6>
+        <input type="text" placeholder="Have a question? Search for answers"
+          title="Type in a name" onChange={(e) => {this.setState({ value: e.target.value.toLocaleLowerCase() });}}/>
+        {this.state.value.length >= 3 ? (
+          <ul>
+            {this.state.quests_answers.filter((questions) =>
+                questions.question_body.toLowerCase().includes(this.state.value)
+              ).map((question) => (
+                <li key={question.question_id}>
+                  <a>{question.question_body}</a>
+                </li>
+              ))}
+          </ul>
+        ) : (
+          ""
+        )}
       </div>
     );
   }

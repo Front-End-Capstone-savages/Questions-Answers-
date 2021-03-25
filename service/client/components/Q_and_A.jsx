@@ -9,6 +9,7 @@ export default class Q_and_A extends Component {
 
     this.state = {
       quests_answers: [],
+      
     };
     this.compare =this.compare.bind(this)
   }
@@ -25,7 +26,7 @@ export default class Q_and_A extends Component {
 
   componentDidMount() {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/?product_id=${11002}`, {
-      headers: {'Authorization': `${token}` }
+      headers: {'Authorization': `${token}`}
     }).then((res) => {
       this.setState({quests_answers: res.data.results.sort(this.compare)})
     }).catch((error) => {
@@ -35,7 +36,7 @@ export default class Q_and_A extends Component {
 
   render() {
     
-    const questions = this.state.quests_answers.filter((question, i)=> i < 1);
+    const questions = this.state.quests_answers.filter((question, i)=> i < 2);
 
     return (
       <div className="container">
@@ -44,7 +45,7 @@ export default class Q_and_A extends Component {
           <article key={question.question_id}>
             <strong>Q: {question.question_body}</strong>
             {/* {question.answers.map()} */}
-            {Object.values(question.answers).sort((a, b) => b.helpfulness - a.helpfulness).map(answer =>
+            {Object.values(question.answers).sort((a, b) => b.helpfulness - a.helpfulness).filter((answers, i)=> i < 2).map(answer =>
             <div key={answer.id}>
             <p><strong>A:</strong> {answer.body}</p>
             {/* <code>by {answer.answerer_name}</code>, <code>{answer.date}</code> */}
@@ -52,6 +53,7 @@ export default class Q_and_A extends Component {
             </div>)}
           </article>
           )}
+          {}
         </div>
       </div>
     );
