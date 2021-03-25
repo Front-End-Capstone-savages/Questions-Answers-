@@ -17,7 +17,6 @@ export default class App extends Component {
     return (
       <div className="container">
         <div className="row">
-            <h6>Questions & Answers</h6>
           <Search />
           <Q_and_A />
         </div>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import token from "../config/config.js";
+import moment from 'moment';
 
 export default class Q_and_A extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ export default class Q_and_A extends Component {
     this.compare =this.compare.bind(this)
   }
 
-  compare(a, b) { //=> i use this function within componentDidMount to sort the questions by question_helpfulness(reviews)
+  compare(a, b) { //=> i use this function within the componentDidMount to sort the questions by question_helpfulness(reviews)
     if ( a.question_helpfulness < b.question_helpfulness ){
       return 1;
     }
@@ -33,25 +34,24 @@ export default class Q_and_A extends Component {
   }
 
   render() {
-    // console.log(this.state)
-    const questions = this.state.quests_answers.filter((question, i)=> { 
-        var quest = question[0]
-        for(var key in quest) {
-         console.log(quest[key])
-        }
-    });
-    // console.log(questions)
+    
+    const questions = this.state.quests_answers.filter((question, i)=> i < 1);
 
     return (
       <div className="container">
         <div className="row">
-            {/* {questions.map(question =>
+            {questions.map(question =>
           <article key={question.question_id}>
-            <h5>Q: {question.question_body}</h5>
-            <p></p>
-            <code></code>
+            <strong>Q: {question.question_body}</strong>
+            {/* {question.answers.map()} */}
+            {Object.values(question.answers).sort((a, b) => b.helpfulness - a.helpfulness).map(answer =>
+            <div key={answer.id}>
+            <p><strong>A:</strong> {answer.body}</p>
+            {/* <code>by {answer.answerer_name}</code>, <code>{answer.date}</code> */}
+            <pre>by {answer.answerer_name}, {moment(answer.date).format('LL')}  |  Helpful? Yes ({answer.helpfulness})  |  Report</pre>
+            </div>)}
           </article>
-          )} */}
+          )}
         </div>
       </div>
     );
