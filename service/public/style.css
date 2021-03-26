@@ -1,0 +1,15 @@
+.searchDiv{
+    background-color: white;
+    position: absolute;
+    margin-top: 30px;
+}
+
+.hover-li:hover {
+    background: rgb(185, 185, 185);
+    display: block
+}
+
+.rowApp {
+    margin-left: 20em;
+    margin-right: 20em
+}

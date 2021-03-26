@@ -29,22 +29,24 @@ export default class Search extends Component {
 
     return (
       <div className="row">
-        <h6>Questions & Answers</h6>
+        <h6 className="text-muted">Questions & Answers</h6>
         <input type="text" placeholder="Have a question? Search for answers"
           title="Type in a name" onChange={(e) => {this.setState({ value: e.target.value.toLocaleLowerCase() });}}/>
+          <div className="searchDiv">
         {this.state.value.length >= 3 ? (
           <ul>
             {this.state.quests_answers.filter((questions) =>
                 questions.question_body.toLowerCase().includes(this.state.value)
               ).map((question) => (
-                <li key={question.question_id}>
+                <div key={question.question_id} className="hover-li">
                   <a>{question.question_body}</a>
-                </li>
+                </div>
               ))}
           </ul>
         ) : (
           ""
         )}
+        </div>
       </div>
     );
   }
