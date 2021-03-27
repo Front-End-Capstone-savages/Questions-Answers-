@@ -16,10 +16,8 @@ export default class App extends Component {
       
     return (
       <div className="container">
-        <div className="rowApp">
           <Search />
           <Q_and_A />
-        </div>
       </div>
     );
   }

@@ -10,9 +10,10 @@ export default class Q_and_A extends Component {
     this.state = {
       quests_answers: [],
       displayed_quests: 2,
-      displayed_answers: 2
+      displayed_answers: 2,
     };
     this.compare = this.compare.bind(this);
+    this.updateQuestion_helpfulness = this.updateQuestion_helpfulness.bind(this);
   }
 
   compare(a, b) {
@@ -27,69 +28,97 @@ export default class Q_and_A extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get(
-        `https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/?product_id=${11002}`,
-        {
-          headers: { Authorization: `${token}` },
-        }
-      )
-      .then((res) => {
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/?product_id=${11002}`,
+        {headers: { Authorization: `${token}` },}
+      ).then((res) => {
         this.setState({ quests_answers: res.data.results.sort(this.compare) });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+      }).catch((error) => {
+        console.error(error);});
+  }
+
+  updateQuestion_helpfulness(question_id, numHelpfulness, index) {
+    const array = this.state.quests_answers;
+    array[index].question_helpfulness = numHelpfulness;
+    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/${question_id}/helpful`,numHelpfulness,
+        {headers: { Authorization: `${token}` },}
+      ).then((res) => {
+        console.log("response", res),
+          this.setState({ quests_answers: array }, () =>
+            console.log(this.state.quests_answers));
+      }).catch((err) => console.log(err));
   }
 
   render() {
-    const questions = this.state.quests_answers.filter((question, i) => i < this.state.displayed_quests);
-    console.log(this.state)
-    
+    const questions = this.state.quests_answers.filter(
+      (question, i) => i < this.state.displayed_quests
+    );
+    console.log(this.state);
+
     return (
-      <div className="row">
-        {questions.map((question) => (
-          <article key={question.question_id}>
-            <strong>Q: {question.question_body}</strong>
-            <pre className="text-muted">
-              <small>
-                Helpful? <u onClick={() => console.log("click")}>Yes</u>(
-                {question.question_helpfulness}) |{" "}
-                <u onClick={() => console.log("click")}>Add Answer</u>
-              </small>
-            </pre>
-            {Object.values(question.answers)
-              .sort((a, b) => b.helpfulness - a.helpfulness)
-              .filter((answers, i) => i < this.state.displayed_answers)
-              .map((answer) => (
-                
-                <div key={answer.id}>
-                  <p>
-                    <strong>A:</strong> {answer.body}
-                  </p>
-                  <pre className="text-muted">
-                    <small>
-                      by {answer.answerer_name},
-                      {moment(answer.date).format("LL")} | Helpful?{" "}
-                      <u onClick={() => console.log("click")}>Yes</u>(
-                      {answer.helpfulness}) |{" "}
-                      <u onClick={() => console.log("click")}>Report</u>
-                    </small>
-                  </pre>
-                </div>
-              ))}
-              <strong onClick={() => this.setState({displayed_answers: this.state.displayed_answers+2})}>
-            <code>
+      <div>
+        {questions.map((question, index) => (
+          <article className="row" key={question.question_id}>
+            <div className="col-8">
+              <strong>Q: {question.question_body}</strong>
+              {Object.values(question.answers)
+                .sort((a, b) => b.helpfulness - a.helpfulness)
+                .filter((answers, i) => i < this.state.displayed_answers)
+                .map((answer) => (
+                  <div key={answer.id}>
+                    <p>
+                      <strong>A:</strong> {answer.body}
+                    </p>
+                    <pre className="text-muted">
+                      <small>
+                        by {answer.answerer_name},
+                        {moment(answer.date).format("LL")} | Helpful?{" "}
+                        <u onClick={() => console.log(answer.id)}>Yes</u>(
+                        {answer.helpfulness}) |{" "}
+                        <u onClick={() => console.log("click")}>Report</u>
+                      </small>
+                    </pre>
+                  </div>
+                ))}
+              <strong
+                className="strongstr"
+                onClick={() =>
+                  this.setState({
+                    displayed_answers: this.state.displayed_answers + 2,
+                  })
+                }
+              >
                 LOAD MORE ANSWERS
-            </code>
               </strong>
+            </div>
+            <div className="col-4 addAnswerForQuest">
+              <pre className="text-muted">
+                <small>
+                  Helpful?{" "}
+                  <u
+                    id={index}
+                    onClick={() =>
+                      this.updateQuestion_helpfulness(
+                        question.question_id,
+                        question.question_helpfulness + 1,
+                        index
+                      )
+                    }
+                  >
+                    Yes
+                  </u>
+                  ({question.question_helpfulness}) |{" "}
+                  <u onClick={() => console.log("click")}>Add Answer</u>
+                </small>
+              </pre>
+            </div>
           </article>
         ))}
         {this.state.quests_answers.length - this.state.displayed_quests > 0 ? (
           <button
             type="button"
-            onClick={() => this.setState({
-                displayed_quests: this.state.displayed_quests + 2
+            onClick={() =>
+              this.setState({
+                displayed_quests: this.state.displayed_quests + 2,
               })
             }
           >

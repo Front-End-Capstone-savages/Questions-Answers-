@@ -1,15 +1,35 @@
 .searchDiv{
-    background-color: white;
-    position: absolute;
-    margin-top: 30px;
+    background-color: whitesmoke;
+    position: inherit;
+    margin-top: -20px;
+    margin-right: 179px
 }
 
 .hover-li:hover {
     background: rgb(185, 185, 185);
-    display: block
+    display: block;
+    margin-left: -40px;
+    margin-bottom: 5px;
 }
 
 .rowApp {
     margin-left: 20em;
     margin-right: 20em
+}
+.strongstr{
+    font-size: 0.7rem;
+}
+
+.searchBarQuests{
+    padding: 15px;
+    margin-bottom: 20px;
+    margin-top: 20px
+}
+.text-muted{
+    padding-left:1px !important;
+}
+
+.addAnswerForQuest{
+    margin-left: -40px;
+
 }
