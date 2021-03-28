@@ -11,6 +11,8 @@ export default class Q_and_A extends Component {
       quests_answers: [],
       displayed_quests: 2,
       displayed_answers: 2,
+      likeQuest: false,
+      likeAnswers: false,
     };
     this.compare = this.compare.bind(this);
     this.updateQuestion_helpfulness = this.updateQuestion_helpfulness.bind(this);
@@ -37,23 +39,26 @@ export default class Q_and_A extends Component {
   }
 
   updateQuestion_helpfulness(question_id, numHelpfulness, index) {
+    if(!this.state.likeQuest){ 
     const array = this.state.quests_answers;
     array[index].question_helpfulness = numHelpfulness;
     axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/${question_id}/helpful`,numHelpfulness,
         {headers: { Authorization: `${token}` },}
       ).then((res) => {
         console.log("response", res),
-          this.setState({ quests_answers: array }, () =>
-            console.log(this.state.quests_answers));
+          this.setState({ quests_answers: array,
+                          likeQuest: true});
       }).catch((err) => console.log(err));
+      
+    }
   }
+
+  
 
   render() {
     const questions = this.state.quests_answers.filter(
-      (question, i) => i < this.state.displayed_quests
-    );
-    console.log(this.state);
-
+      (question, i) => i < this.state.displayed_quests & question.reported == false);
+  
     return (
       <div>
         {questions.map((question, index) => (
@@ -64,23 +69,24 @@ export default class Q_and_A extends Component {
                 .sort((a, b) => b.helpfulness - a.helpfulness)
                 .filter((answers, i) => i < this.state.displayed_answers)
                 .map((answer) => (
-                  <div key={answer.id}>
-                    <p>
-                      <strong>A:</strong> {answer.body}
+                  <div className="answersBody" key={answer.id}>
+                    <p className="answersP">
+                      <strong>A:</strong><small> {answer.body}</small>
                     </p>
-                    <pre className="text-muted">
+                    <pre>
                       <small>
                         by {answer.answerer_name},
-                        {moment(answer.date).format("LL")} | Helpful?{" "}
-                        <u onClick={() => console.log(answer.id)}>Yes</u>(
+                        {moment(answer.date).format("LL")} | <strong>Helpful?</strong>{" "}
+                        <u type="button" onClick={() => console.log(answer.id)}><strong>Yes</strong></u>(
                         {answer.helpfulness}) |{" "}
-                        <u onClick={() => console.log("click")}>Report</u>
+                        <u type="button" onClick={() => console.log("Report")}><strong>Report</strong></u>
                       </small>
                     </pre>
                   </div>
                 ))}
+                <p className="more_answersB">
               <strong
-                className="strongstr"
+                type="button"
                 onClick={() =>
                   this.setState({
                     displayed_answers: this.state.displayed_answers + 2,
@@ -89,12 +95,14 @@ export default class Q_and_A extends Component {
               >
                 LOAD MORE ANSWERS
               </strong>
+              </p>
             </div>
             <div className="col-4 addAnswerForQuest">
-              <pre className="text-muted">
+              <pre>
                 <small>
-                  Helpful?{" "}
-                  <u
+                  <strong>Helpful?</strong>{" "}
+                  
+                  <u type="button"
                     id={index}
                     onClick={() =>
                       this.updateQuestion_helpfulness(
@@ -104,10 +112,10 @@ export default class Q_and_A extends Component {
                       )
                     }
                   >
-                    Yes
+                    <strong>Yes</strong>
                   </u>
                   ({question.question_helpfulness}) |{" "}
-                  <u onClick={() => console.log("click")}>Add Answer</u>
+                  <u type="button" onClick={() => console.log("click")}><strong>Add Answer</strong></u>
                 </small>
               </pre>
             </div>
@@ -115,6 +123,7 @@ export default class Q_and_A extends Component {
         ))}
         {this.state.quests_answers.length - this.state.displayed_quests > 0 ? (
           <button
+            className="all_Button"
             type="button"
             onClick={() =>
               this.setState({
@@ -126,6 +135,7 @@ export default class Q_and_A extends Component {
           </button>
         ) : (
           <button
+            className="all_Button"
             type="button"
             onClick={() =>
               this.setState({
@@ -136,6 +146,7 @@ export default class Q_and_A extends Component {
             <strong>LESS QUESTION</strong>
           </button>
         )}
+        <button className="add_question_button" type="button" onClick={() =>console.log("ADD A QUESTION  +")}><strong>ADD A QUESTION  +</strong></button>
       </div>
     );
   }

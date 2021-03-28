@@ -1,3 +1,9 @@
+.Q_A_container{
+    padding-left: 341px;
+    padding-right: 152px;
+}
+
+
 .searchDiv{
     background-color: whitesmoke;
     position: inherit;
@@ -21,15 +27,51 @@
 }
 
 .searchBarQuests{
-    padding: 15px;
-    margin-bottom: 20px;
-    margin-top: 20px
+    padding: 12px;
+    margin-bottom: 38px;
+    margin-top: 1px;
+    padding-right: 660px;
 }
-.text-muted{
-    padding-left:1px !important;
+.answersBody{
+    margin-bottom: -2px;
+
 }
 
 .addAnswerForQuest{
     margin-left: -40px;
+}
 
+.Q_A_Title{
+    margin-top: 20px;
+}
+
+.answersP {
+    margin-bottom: 5px;
+    padding-top: 11px;
+}
+
+.all_Button {
+    background-color: white;
+    color: rgb(95 95 95 / 90%);
+    border: 2px solid #9a9a9a;
+    margin-right: 15px;
+    margin-top: 10px;
+    padding-top: 25px;
+    padding-left: 15px;
+    margin-bottom: 28px;
+}
+
+.add_question_button{
+    background-color: white;
+    color: rgb(95 95 95 / 90%);
+    border: 2px solid #9a9a9a;
+    margin-right: 15px;
+    margin-top: 10px;
+    padding-top: 25px;
+}
+
+.more_answersB {
+    margin-bottom: 8px;
+    padding-left: 20px;
+    font-size: 10px;
 }

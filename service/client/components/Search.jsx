@@ -25,16 +25,15 @@ export default class Search extends Component {
   }
   
   render() {
-    console.log("imput", this.state.value)  
 
     return (
       <div className="container row" style={{display:"revert"}}>
-        <h6 className="text-muted">QUESTIONS & ANSWERS</h6>
         <div>
+        <p className="Q_A_Title">QUESTIONS & ANSWERS</p>
           <input
-            className="col-10 searchBarQuests" 
+            className="searchBarQuests" 
             type="text"
-            placeholder="Have a question? Search for answers"
+            placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
             title="Type in a name"
             onChange={(e) => {
               this.setState({ value: e.target.value.toLowerCase() });

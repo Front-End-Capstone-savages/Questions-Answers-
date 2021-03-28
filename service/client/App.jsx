@@ -15,7 +15,7 @@ export default class App extends Component {
   render() {
       
     return (
-      <div className="container">
+      <div className="text-muted Q_A_container">
           <Search />
           <Q_and_A />
       </div>
