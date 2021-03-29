@@ -89,3 +89,49 @@
 .answer_info {
     margin-left: 20px;
 }
+
+  .create-editor {
+    width: 40%;
+    float: left;
+  }
+  
+  .create-preview {
+    width: 60%;
+    float: right;
+    margin: 0 auto;
+  }
+  
+  
+  .create-input {
+    width: 80%;
+    display: block;
+    font-size: .9em;
+    height: 30px;
+    margin-bottom: 15px;
+    border: none;
+    padding: 5px;
+  }
+  
+  .create-body-textarea {
+    width: 80%;
+    font-size: .9em;
+    display: block;
+    height: 200px;
+    border: none;
+    padding: 5px;
+    resize: none;
+  }
+  
+  .create-submit-button {
+    width: 79%;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    background-color: white;
+    margin-right: 15px;
+    color: rgb(95 95 95 / 90%);
+    border: 2px solid #9a9a9a;
+    padding-top: 25px;
+    padding-left: 15px;
+    
+  }
+  
