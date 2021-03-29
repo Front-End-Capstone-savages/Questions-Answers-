@@ -11,54 +11,58 @@ export default class Q_and_A extends Component {
       quests_answers: [],
       displayed_quests: 2,
       displayed_answers: 2,
-      likeQuest: false,
-      likeAnswers: false,
+      likeQuest: [],
+      likeAnswers: [],
     };
-    this.compare = this.compare.bind(this);
     this.updateQuestion_helpfulness = this.updateQuestion_helpfulness.bind(this);
-  }
-
-  compare(a, b) {
-    //=> i use this function within the componentDidMount to sort the questions by question_helpfulness(reviews)
-    if (a.question_helpfulness < b.question_helpfulness) {
-      return 1;
-    }
-    if (a.question_helpfulness > b.question_helpfulness) {
-      return -1;
-    }
-    return 0;
+    this.updateAnswer_helpful = this.updateAnswer_helpful.bind(this);
   }
 
   componentDidMount() {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/?product_id=${11002}`,
         {headers: { Authorization: `${token}` },}
       ).then((res) => {
-        this.setState({ quests_answers: res.data.results.sort(this.compare) });
+        var data = res.data.results;
+        this.setState({ quests_answers: data.sort((a, b)=> b.question_helpfulness - a.question_helpfulness) });
       }).catch((error) => {
         console.error(error);});
   }
 
-  updateQuestion_helpfulness(question_id, numHelpfulness, index) {
-    if(!this.state.likeQuest){ 
-    const array = this.state.quests_answers;
-    array[index].question_helpfulness = numHelpfulness;
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/${question_id}/helpful`,numHelpfulness,
+  updateQuestion_helpfulness(question_id, like_Q, index) {
+    if(!this.state.likeQuest[index]){ 
+    const array_Q = this.state.quests_answers;
+    array_Q[index].question_helpfulness = like_Q;
+    this.state.likeQuest[index] = true;
+    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/${question_id}/helpful`,like_Q,
         {headers: { Authorization: `${token}` },}
       ).then((res) => {
-        console.log("response", res),
-          this.setState({ quests_answers: array,
-                          likeQuest: true});
+        console.log("question like + 1", res);
+          this.setState({ quests_answers: array_Q,});
       }).catch((err) => console.log(err));
-      
     }
   }
 
-  
+  updateAnswer_helpful(answer_id, like_A, index_Q) {
+    if(!this.state.likeAnswers[answer_id]){
+      const array_A = this.state.quests_answers;
+      array_A[index_Q].answers[answer_id].helpfulness = like_A;
+      this.state.likeAnswers[answer_id] = true;
+      console.log(like_A, answer_id);
+      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/answers/${answer_id}/helpful`,like_A,
+      {headers: { Authorization: `${token}` },})
+      .then((res) => {
+        console.log("answer like + 1", res);
+        this.setState({quests_answers: array_A})
+      }).catch((err) => console.log(err));
+    }
+  }
+
 
   render() {
     const questions = this.state.quests_answers.filter(
       (question, i) => i < this.state.displayed_quests & question.reported == false);
-  
+      console.log(this.state.quests_answers)
+      
     return (
       <div>
         {questions.map((question, index) => (
@@ -73,11 +77,17 @@ export default class Q_and_A extends Component {
                     <p className="answersP">
                       <strong>A:</strong><small> {answer.body}</small>
                     </p>
+                    {answer.photos.map((photo, i)=>
+                    <div className="dispalyPicture_A" key={i}>
+                    <img src={photo}/>
+                    </div>
+                    )}
                     <pre>
                       <small>
                         by {answer.answerer_name},
                         {moment(answer.date).format("LL")} | <strong>Helpful?</strong>{" "}
-                        <u type="button" onClick={() => console.log(answer.id)}><strong>Yes</strong></u>(
+                        <u type="button" onClick={() => this.updateAnswer_helpful(answer.id, answer.helpfulness+1, index, )}>
+                          <strong>Yes</strong></u>(
                         {answer.helpfulness}) |{" "}
                         <u type="button" onClick={() => console.log("Report")}><strong>Report</strong></u>
                       </small>
