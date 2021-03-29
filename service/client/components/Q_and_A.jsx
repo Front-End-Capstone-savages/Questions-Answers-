@@ -8,18 +8,27 @@ export default class Q_and_A extends Component {
     super(props);
 
     this.state = {
+      product_id: 11050,
       quests_answers: [],
       displayed_quests: 2,
       displayed_answers: 2,
       likeQuest: [],
       likeAnswers: [],
+      authoAdd_Q: true, 
+      body_Q: "",
+      name_Q: "",
+      email_Q: "",
+      product_id: null,
     };
+
     this.updateQuestion_helpfulness = this.updateQuestion_helpfulness.bind(this);
     this.updateAnswer_helpful = this.updateAnswer_helpful.bind(this);
+    this.updateQuestion_Reported = this.updateQuestion_Reported.bind(this);
+    // this.create_Quest = this.create_Quest.bind(this);
   }
 
   componentDidMount() {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/?product_id=${11002}`,
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/?product_id=${11050}`,
         {headers: { Authorization: `${token}` },}
       ).then((res) => {
         var data = res.data.results;
@@ -57,11 +66,28 @@ export default class Q_and_A extends Component {
     }
   }
 
+  updateQuestion_Reported(question_id, report) {
+    console.log(question_id, report);
+    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/${question_id}/report`,report,
+      {headers: { Authorization: `${token}` },})
+      .then((res) => {
+        console.log("question_reported", res);
+      }).catch((err) => console.log(err));
+  }
+
+  // create_Quest() {
+  //   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/`,this.state.create_Q,
+  //     {headers: { Authorization: `${token}` },})
+  //     .then((res) => {
+  //       console.log("question_reported", res);
+  //     }).catch((err) => console.log(err));
+  // }
+
 
   render() {
     const questions = this.state.quests_answers.filter(
       (question, i) => i < this.state.displayed_quests & question.reported == false);
-      console.log(this.state.quests_answers)
+      console.log(this.state)
       
     return (
       <div>
@@ -78,18 +104,16 @@ export default class Q_and_A extends Component {
                       <strong>A:</strong><small> {answer.body}</small>
                     </p>
                     {answer.photos.map((photo, i)=>
-                    <div className="dispalyPicture_A" key={i}>
-                    <img src={photo}/>
-                    </div>
+                    <img className="pictureImg" type="button" key={i} src={photo} />
                     )}
-                    <pre>
+                    <pre className="answer_info">
                       <small>
                         by {answer.answerer_name},
                         {moment(answer.date).format("LL")} | <strong>Helpful?</strong>{" "}
                         <u type="button" onClick={() => this.updateAnswer_helpful(answer.id, answer.helpfulness+1, index, )}>
                           <strong>Yes</strong></u>(
                         {answer.helpfulness}) |{" "}
-                        <u type="button" onClick={() => console.log("Report")}><strong>Report</strong></u>
+                        <u type="button" onClick={() => this.updateQuestion_Reported(question.question_id, !question.reported)}><strong>Report</strong></u>
                       </small>
                     </pre>
                   </div>
@@ -156,7 +180,29 @@ export default class Q_and_A extends Component {
             <strong>LESS QUESTION</strong>
           </button>
         )}
-        <button className="add_question_button" type="button" onClick={() =>console.log("ADD A QUESTION  +")}><strong>ADD A QUESTION  +</strong></button>
+        <button className="add_question_button" type="button" onClick={()=>this.state.authoAdd_Q = !this.state.authoAdd_Q}><strong>ADD A QUESTION  +</strong></button>
+        <div>
+          {!this.state.authoAdd_Q ? 
+           <div className="create">
+  <div className="create-editor">
+    <form>
+      <input  className="create-input" type="text"  placeholder="Enter your Name"
+            onChange={(e)=>{this.setState({name_Q: e.target.value})}}>
+      </input>
+      <input className="create-input" type="email"  placeholder="Enter your E-mail"
+            onChange={(e)=>{this.setState({email_Q: e.target.value})}}>
+      </input>
+      <textarea className="create-body-textarea"  placeholder="Post Body"
+            onChange={(e)=>{this.setState({body: e.target.value})}}>
+      </textarea>
+      <button className="create-submit-button" type="submit"
+                onClick={this.submit}>
+          Save post
+          </button>
+    </form>
+  </div>
+</div> : ""}
+        </div>
       </div>
     );
   }

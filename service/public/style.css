@@ -5,10 +5,11 @@
 
 
 .searchDiv{
-    background-color: whitesmoke;
+    background-color: rgb(245, 245, 245);
     position: inherit;
     margin-top: -20px;
-    margin-right: 179px
+    margin-right: 179px;
+    margin-bottom: 13px;
 }
 
 .hover-li:hover {
@@ -31,6 +32,7 @@
     margin-bottom: 38px;
     margin-top: 1px;
     padding-right: 660px;
+    margin-bottom: 20px;
 }
 .answersBody{
     margin-bottom: -2px;
@@ -74,4 +76,16 @@
     margin-bottom: 8px;
     padding-left: 20px;
     font-size: 10px;
+}
+
+.pictureImg {
+    width: 97px;
+    height: 69px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 20px;
+}
+
+.answer_info {
+    margin-left: 20px;
 }

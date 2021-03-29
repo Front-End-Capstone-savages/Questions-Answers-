@@ -14,7 +14,7 @@ export default class Search extends Component {
   }
 
   componentDidMount() {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/?product_id=${11002}`, {
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/?product_id=${11050}`, {
       headers: {
         'Authorization': `${token}` }
     }).then((res) => {
@@ -50,7 +50,7 @@ export default class Search extends Component {
                   )
                   .map((question) => (
                     <div key={question.question_id} className="hover-li">
-                      <a>{question.question_body}</a>
+                      <a><strong type="button">{question.question_body}</strong></a>
                     </div>
                   ))}
               </ul>
