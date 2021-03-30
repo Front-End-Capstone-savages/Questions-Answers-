@@ -1,137 +1,139 @@
-.Q_A_container{
-    padding-left: 341px;
-    padding-right: 152px;
+.Q_A_container {
+  padding-left: 341px;
+  padding-right: 152px;
 }
 
-
-.searchDiv{
-    background-color: rgb(245, 245, 245);
-    position: inherit;
-    margin-top: -20px;
-    margin-right: 179px;
-    margin-bottom: 13px;
+.searchDiv {
+  background-color: rgb(245, 245, 245);
+  position: inherit;
+  margin-top: -20px;
+  margin-right: 179px;
+  margin-bottom: 13px;
 }
 
 .hover-li:hover {
-    background: rgb(185, 185, 185);
-    display: block;
-    margin-left: -40px;
-    margin-bottom: 5px;
+  background: rgb(185, 185, 185);
+  display: block;
+  margin-left: -40px;
+  margin-bottom: 5px;
 }
 
 .rowApp {
-    margin-left: 20em;
-    margin-right: 20em
+  margin-left: 20em;
+  margin-right: 20em;
 }
-.strongstr{
-    font-size: 0.7rem;
-}
-
-.searchBarQuests{
-    padding: 12px;
-    margin-bottom: 38px;
-    margin-top: 1px;
-    padding-right: 660px;
-    margin-bottom: 20px;
-}
-.answersBody{
-    margin-bottom: -2px;
-
+.strongstr {
+  font-size: 0.7rem;
 }
 
-.addAnswerForQuest{
-    margin-left: -40px;
+.searchBarQuests {
+  padding: 12px;
+  margin-bottom: 38px;
+  margin-top: 1px;
+  padding-right: 660px;
+  margin-bottom: 20px;
+}
+.answersBody {
+  margin-bottom: -2px;
 }
 
-.Q_A_Title{
-    margin-top: 20px;
+.addAnswerForQuest {
+  margin-left: -40px;
+}
+
+.Q_A_Title {
+  margin-top: 20px;
 }
 
 .answersP {
-    margin-bottom: 5px;
-    padding-top: 11px;
+  margin-bottom: 5px;
+  padding-top: 11px;
 }
 
 .all_Button {
-    background-color: white;
-    color: rgb(95 95 95 / 90%);
-    border: 2px solid #9a9a9a;
-    margin-right: 15px;
-    margin-top: 10px;
-    padding-top: 25px;
-    padding-left: 15px;
-    margin-bottom: 28px;
+  background-color: white;
+  color: rgb(95 95 95 / 90%);
+  border: 2px solid #9a9a9a;
+  margin-right: 15px;
+  margin-top: 10px;
+  padding-top: 25px;
+  padding-left: 15px;
+  margin-bottom: 28px;
 }
 
-.add_question_button{
-    background-color: white;
-    color: rgb(95 95 95 / 90%);
-    border: 2px solid #9a9a9a;
-    margin-right: 15px;
-    margin-top: 10px;
-    padding-top: 25px;
+.add_question_button {
+  background-color: white;
+  color: rgb(95 95 95 / 90%);
+  border: 2px solid #9a9a9a;
+  margin-right: 15px;
+  margin-top: 10px;
+  padding-top: 25px;
 }
 
 .more_answersB {
-    margin-bottom: 8px;
-    padding-left: 20px;
-    font-size: 10px;
+  margin-bottom: 8px;
+  padding-left: 20px;
+  font-size: 10px;
 }
 
 .pictureImg {
-    width: 97px;
-    height: 69px;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    margin-left: 20px;
+  width: 97px;
+  height: 69px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-left: 20px;
+}
+
+.pictureImg:hover {
+  transform: scale(8);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .answer_info {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
-  .create-editor {
-    width: 40%;
-    float: left;
-  }
-  
-  .create-preview {
-    width: 60%;
-    float: right;
-    margin: 0 auto;
-  }
-  
-  
-  .create-input {
-    width: 80%;
-    display: block;
-    font-size: .9em;
-    height: 30px;
-    margin-bottom: 15px;
-    border: none;
-    padding: 5px;
-  }
-  
-  .create-body-textarea {
-    width: 80%;
-    font-size: .9em;
-    display: block;
-    height: 200px;
-    border: none;
-    padding: 5px;
-    resize: none;
-  }
-  
-  .create-submit-button {
-    width: 79%;
-    margin-bottom: 20px;
-    margin-top: 10px;
-    background-color: white;
-    margin-right: 15px;
-    color: rgb(95 95 95 / 90%);
-    border: 2px solid #9a9a9a;
-    padding-top: 25px;
-    padding-left: 15px;
-    
-  }
-  
+.create-editor {
+  width: 40%;
+  float: left;
+}
+
+.create-preview {
+  width: 60%;
+  float: right;
+  margin: 0 auto;
+}
+
+.create-input {
+  width: 80%;
+  display: block;
+  font-size: 0.9em;
+  height: 30px;
+  margin-bottom: 15px;
+  border: none;
+  padding: 5px;
+}
+
+.create-body-textarea {
+  width: 80%;
+  font-size: 0.9em;
+  display: block;
+  height: 200px;
+  border: none;
+  padding: 5px;
+  resize: none;
+}
+
+.create-submit-button {
+  width: 79%;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  background-color: white;
+  margin-right: 15px;
+  color: rgb(95 95 95 / 90%);
+  border: 2px solid #9a9a9a;
+  padding-top: 25px;
+  padding-left: 15px;
+}

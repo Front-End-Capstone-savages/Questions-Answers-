@@ -102,7 +102,8 @@ export default class Q_and_A extends Component {
     e.preventDefault();
     const {body_A, name_A, email_A, imag_A} = this.state;
     console.log(question_id, body_A, name_A, email_A, imag_A);
-    axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/${question_id}/answers`,{body: body_A, name: name_A, email: email_A, imag_A},
+    axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/${question_id}/answers`,
+    {body: body_A, name: name_A, email: email_A, imag_A},
       {headers: { Authorization: `${token}` },})
       .then((res) => {
         console.log("Post Answer", res);
