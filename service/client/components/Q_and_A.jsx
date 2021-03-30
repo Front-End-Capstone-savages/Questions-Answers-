@@ -90,7 +90,7 @@ export default class Q_and_A extends Component {
   post_Question(e) {
     e.preventDefault();
     const {body_Q, name_Q, email_Q, product_id} = this.state;
-    axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/`,{body: body_Q, name: name_Q, email: email_Q, imag_A, product_id},
+    axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/qa/questions/`,{body: body_Q, name: name_Q, email: email_Q, product_id},
       {headers: { Authorization: `${token}` },})
       .then((res) => {
         console.log("Post Question", res);
@@ -176,7 +176,7 @@ export default class Q_and_A extends Component {
                     <strong>Yes</strong>
                   </u>
                   ({question.question_helpfulness}) |{" "}
-                  <u type="button" onClick={() => {this.setState({authoAdd_A: !this.state.authoAdd_A}), console.log(this.state.authoAdd_A)}}>
+                  <u type="button" onClick={() => this.setState({authoAdd_A: !this.state.authoAdd_A})}>
                     <strong>Add Answer</strong></u>
                 </small>
               </pre>
